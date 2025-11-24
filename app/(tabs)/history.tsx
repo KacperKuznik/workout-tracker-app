@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { HISTORY } from '../data/historyData';
+import { HISTORY } from '@/data/historyData';
 
 export default function History() {
   const router = useRouter();
