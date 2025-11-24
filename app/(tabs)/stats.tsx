@@ -2,16 +2,13 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-// test data: 1 for Jan, 2 for Feb, etc.
 const DATA = [1,2,3,4,5,6,7,8,9,10,11,12];
 
 export default function Stats() {
   const max = Math.max(...DATA);
-
-  // simple derived metrics for demo
   const totalWorkouts = DATA.reduce((s,v)=>s+v,0);
-  const caloriesBurned = totalWorkouts * 300; // sample multiplier
-  const weightMoved = totalWorkouts * 200; // sample multiplier (kg)
+  const caloriesBurned = totalWorkouts * 300;
+  const weightMoved = totalWorkouts * 200;
 
   return (
     <ScrollView style={styles.page} contentContainerStyle={styles.content}>
@@ -19,11 +16,10 @@ export default function Stats() {
 
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Workouts this year</Text>
-        <View style={styles.chartArea}>
-          <View style={styles.yAxis} />
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View style={styles.barsRow}>
             {DATA.map((value, i) => {
-              const height = (value / max) * 180 + 8; // normalized height
+              const height = (value / max) * 180 + 8;
               return (
                 <View key={i} style={styles.barColumn}>
                   <View style={[styles.bar, { height }]} />
@@ -32,7 +28,7 @@ export default function Stats() {
               );
             })}
           </View>
-        </View>
+        </ScrollView>
       </View>
 
       <View style={styles.metricsRow}>
@@ -45,7 +41,6 @@ export default function Stats() {
           <Text style={styles.metricValue}>{weightMoved.toLocaleString()}</Text>
         </View>
       </View>
-
     </ScrollView>
   );
 }
@@ -58,7 +53,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 16,
-    // shadow
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.06,
@@ -67,28 +61,26 @@ const styles = StyleSheet.create({
     marginBottom: 18,
   },
   cardTitle: { fontSize: 16, fontWeight: '600', marginBottom: 12, color: '#222' },
-  chartArea: { flexDirection: 'row', alignItems: 'flex-end' },
-  yAxis: { width: 8 },
-  barsRow: { flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', flex: 1 },
-  barColumn: { alignItems: 'center', flex: 1, marginHorizontal: 4 },
+  barsRow: { flexDirection: 'row', alignItems: 'flex-end' },
+  barColumn: { alignItems: 'center', flex: 1, minWidth: 24, marginHorizontal: 4 },
   bar: { width: '60%', backgroundColor: '#0A84FF', borderRadius: 6 },
   barLabel: { marginTop: 8, fontSize: 12, color: '#666' },
-
-  metricsRow: { flexDirection: 'row', gap: 12, justifyContent: 'space-between' },
+  metricsRow: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginTop: 12 },
   metricCard: {
     flex: 1,
+    minWidth: 140,
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 14,
     alignItems: 'center',
-    // shadow
+    marginRight: 8,
+    marginBottom: 12,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.04,
     shadowRadius: 6,
     elevation: 3,
   },
-  metricLabel: { fontSize: 13, color: '#666', marginBottom: 6 },
-  metricValue: { fontSize: 20, fontWeight: '700', color: '#111' },
+  metricLabel: { fontSize: 13, color: '#666', marginBottom: 6, flexShrink: 1 },
+  metricValue: { fontSize: 20, fontWeight: '700', color: '#111', flexShrink: 1 },
 });
-

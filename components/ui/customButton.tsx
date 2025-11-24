@@ -4,18 +4,34 @@ import { Pressable, StyleSheet, Text } from 'react-native';
 interface CustomButtonProps {
   title: string;
   onPress: () => void;
+  disabled?: boolean;
+  width?: number | string;
+  height?: number | string;
+  mode?: 'default' | 'stop';
 }
 
-export default function CustomButton({ title, onPress,}: CustomButtonProps) {
+export default function CustomButton({
+  title,
+  onPress,
+  disabled = false,
+  width,
+  height,
+  mode = 'default',
+}: CustomButtonProps) {
   return (
     <Pressable
-      onPress={onPress}
+      onPress={disabled ? undefined : onPress}
+      disabled={disabled}
       style={({ pressed }) => [
         styles.button,
-        pressed && styles.buttonPressed,
+        width && { width },
+        height && { height },
+        pressed && !disabled && styles.buttonPressed,
+        disabled && styles.buttonDisabled,
+        mode === 'stop' && styles.buttonStop, // apply red if stop mode
       ]}
     >
-      <Text style={styles.text}>{title}</Text>
+      <Text style={[styles.text]}>{title}</Text>
     </Pressable>
   );
 }
@@ -23,7 +39,7 @@ export default function CustomButton({ title, onPress,}: CustomButtonProps) {
 const styles = StyleSheet.create({
   button: {
     backgroundColor: '#0A84FF',
-    width: "90%",
+    width: '90%',
     alignSelf: 'center',
     height: 84,
     marginVertical: 14,
@@ -32,15 +48,20 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    // shadow / elevation to give card/button depth
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.12,
     shadowRadius: 8,
     elevation: 6,
   },
+  buttonStop: {
+    backgroundColor: '#FF3B30',
+  },
   buttonPressed: {
     backgroundColor: '#0666d9',
+  },
+  buttonDisabled: {
+    backgroundColor: '#333333',
   },
   text: {
     color: 'white',
