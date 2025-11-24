@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, Text, StyleSheet } from 'react-native';
+import { Pressable, StyleSheet, Text } from 'react-native';
 
 interface CustomButtonProps {
   title: string;
@@ -22,22 +22,31 @@ export default function CustomButton({ title, onPress,}: CustomButtonProps) {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#007AFF',
-    width: "70%",
-    height: 100,
-    margin: 10,
+    backgroundColor: '#0A84FF',
+    width: "90%",
+    alignSelf: 'center',
+    height: 84,
+    marginVertical: 14,
     paddingVertical: 12,
     paddingHorizontal: 24,
-    borderRadius: 8,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
+    // shadow / elevation to give card/button depth
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.12,
+    shadowRadius: 8,
+    elevation: 6,
   },
   buttonPressed: {
-    backgroundColor: '#005BBB',
+    backgroundColor: '#0666d9',
   },
   text: {
     color: 'white',
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '700',
+    letterSpacing: 0.6,
+    textTransform: 'uppercase',
   },
 });

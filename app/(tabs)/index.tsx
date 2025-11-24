@@ -1,7 +1,8 @@
 
-import { Text, View, TextInput, Image, Button, StyleSheet } from "react-native";
 import WorkoutCalendar from "@/components/calendar";
+import CustomButton from '@/components/ui/customButton';
 import { useRouter } from 'expo-router';
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 const styles = StyleSheet.create({
   input: {
@@ -18,24 +19,41 @@ const styles = StyleSheet.create({
     fontSize: 32,
   },
   greetings: {
-    fontSize: 32,
+    fontSize: 28,
     position: "absolute",
-    top: 50,
-    left: 20
+    top: 24,
+    left: 16,
+    color: '#111',
+    fontWeight: '600'
   },
   container: {
     flex: 1,
-    paddingTop: 130,
+    paddingTop: 100,
     alignItems: "center",
-    gap: 25
+    gap: 20,
+    backgroundColor: '#f3f4f6'
   },
   button: {
-    width: "80%",
+    width: "90%",
   },
   calendarContainer: {
-    width: "80%",
-    height: "55%",
-    maxWidth: 400
+    width: '95%',
+    maxWidth: 900,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // white card look
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    
+    paddingHorizontal: 10,
+    // subtle shadow
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.06,
+    shadowRadius: 10,
+    elevation: 4,
+    marginBottom: 36,
+    paddingVertical: 26
   },
 });
 
@@ -47,16 +65,14 @@ export default function Home() {
   };
 
   return (
-    <View
-      style={styles.container}
-    >
+    <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.container}>
+      <Text style={styles.greetings}>Hi David! 👋</Text>
       <View style={styles.calendarContainer} >
         <WorkoutCalendar/>
       </View>
-      <Text style={styles.greetings}>Hi David! 👋</Text>
-      <View style={styles.button}>
-        <Button title="Workouts" onPress={handleClick}/>
-      </View>
-    </View>
+
+      {/* larger central call-to-action, spaced from calendar */}
+      <CustomButton title="Workouts" onPress={handleClick} />
+    </ScrollView>
   );
 }
